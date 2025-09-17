@@ -4,101 +4,43 @@
  */
 package modelo;
 
-import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import java.math.BigDecimal;
+import java.sql.Date;
 
-/**
- *
- * @author ericg
- */
-@Entity
-@Table(name = "compra")
-@NamedQueries({
-    @NamedQuery(name = "Compra.findAll", query = "SELECT c FROM Compra c"),
-    @NamedQuery(name = "Compra.findByIdCompra", query = "SELECT c FROM Compra c WHERE c.idCompra = :idCompra"),
-    @NamedQuery(name = "Compra.findByFecha", query = "SELECT c FROM Compra c WHERE c.fecha = :fecha")})
-public class Compra implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id_compra")
-    private Integer idCompra;
-    @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
+public class Compra {
+    private int id_compra;
+    private int proveedor_id;
     private Date fecha;
-    @JoinColumn(name = "proveedor_id", referencedColumnName = "id_proveedor")
-    @ManyToOne
-    private Proveedor proveedorId;
+    private String nombreProveedor; // Solo para mostrar en tabla
 
-    public Compra() {
-    }
+    public Compra() {}
 
-    public Compra(Integer idCompra) {
-        this.idCompra = idCompra;
-    }
-
-    public Integer getIdCompra() {
-        return idCompra;
-    }
-
-    public void setIdCompra(Integer idCompra) {
-        this.idCompra = idCompra;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
+    public Compra(int id_compra, int proveedor_id, Date fecha) {
+        this.id_compra = id_compra;
+        this.proveedor_id = proveedor_id;
         this.fecha = fecha;
     }
 
-    public Proveedor getProveedorId() {
-        return proveedorId;
-    }
+    // Getters y Setters
+    public int getId_compra() { return id_compra; }
+    public void setId_compra(int id_compra) { this.id_compra = id_compra; }
 
-    public void setProveedorId(Proveedor proveedorId) {
-        this.proveedorId = proveedorId;
-    }
+    public int getProveedor_id() { return proveedor_id; }
+    public void setProveedor_id(int proveedor_id) { this.proveedor_id = proveedor_id; }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idCompra != null ? idCompra.hashCode() : 0);
-        return hash;
-    }
+    public Date getFecha() { return fecha; }
+    public void setFecha(Date fecha) { this.fecha = fecha; }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Compra)) {
-            return false;
-        }
-        Compra other = (Compra) object;
-        if ((this.idCompra == null && other.idCompra != null) || (this.idCompra != null && !this.idCompra.equals(other.idCompra))) {
-            return false;
-        }
-        return true;
-    }
+    public String getNombreProveedor() { return nombreProveedor; }
+    public void setNombreProveedor(String nombreProveedor) { this.nombreProveedor = nombreProveedor; }
 
     @Override
     public String toString() {
-        return "modelo.Compra[ idCompra=" + idCompra + " ]";
+        return "Compra{" +
+                "id_compra=" + id_compra +
+                ", proveedor_id=" + proveedor_id +
+                ", fecha=" + fecha +
+                ", nombreProveedor='" + nombreProveedor + '\'' +
+                '}';
     }
-    
 }

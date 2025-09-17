@@ -4,60 +4,60 @@
  */
 package modelo;
 
-import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 /**
  *
- * @author ericg
+ * @author lore0
  */
-@Entity
-@Table(name = "proveedor")
-@NamedQueries({
-    @NamedQuery(name = "Proveedor.findAll", query = "SELECT p FROM Proveedor p"),
-    @NamedQuery(name = "Proveedor.findByIdProveedor", query = "SELECT p FROM Proveedor p WHERE p.idProveedor = :idProveedor"),
-    @NamedQuery(name = "Proveedor.findByNombre", query = "SELECT p FROM Proveedor p WHERE p.nombre = :nombre"),
-    @NamedQuery(name = "Proveedor.findByEmpresa", query = "SELECT p FROM Proveedor p WHERE p.empresa = :empresa"),
-    @NamedQuery(name = "Proveedor.findByTelefono", query = "SELECT p FROM Proveedor p WHERE p.telefono = :telefono")})
-public class Proveedor implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id_proveedor")
-    private Integer idProveedor;
-    @Column(name = "nombre")
+
+import java.math.BigDecimal;
+
+/**
+ * Clase modelo para Proveedor
+ * @author lore0
+ */
+public class Proveedor {
+    private int idProveedor;
     private String nombre;
-    @Column(name = "empresa")
     private String empresa;
-    @Column(name = "telefono")
     private String telefono;
-    @OneToMany(mappedBy = "proveedorId")
-    private List<Compra> compraList;
+    private BigDecimal precioMinimo;
+    private int plazoEntrega;
+    private String contacto;
 
+    // Constructor vacío
     public Proveedor() {
     }
 
-    public Proveedor(Integer idProveedor) {
+    // Constructor con parámetros
+    public Proveedor(int idProveedor, String nombre, String empresa, String telefono, 
+                    BigDecimal precioMinimo, int plazoEntrega, String contacto) {
         this.idProveedor = idProveedor;
+        this.nombre = nombre;
+        this.empresa = empresa;
+        this.telefono = telefono;
+        this.precioMinimo = precioMinimo;
+        this.plazoEntrega = plazoEntrega;
+        this.contacto = contacto;
     }
 
-    public Integer getIdProveedor() {
+    // Constructor sin ID (para insertar)
+    public Proveedor(String nombre, String empresa, String telefono, 
+                    BigDecimal precioMinimo, int plazoEntrega, String contacto) {
+        this.nombre = nombre;
+        this.empresa = empresa;
+        this.telefono = telefono;
+        this.precioMinimo = precioMinimo;
+        this.plazoEntrega = plazoEntrega;
+        this.contacto = contacto;
+    }
+
+    // Getters y Setters
+    public int getIdProveedor() {
         return idProveedor;
     }
 
-    public void setIdProveedor(Integer idProveedor) {
+    public void setIdProveedor(int idProveedor) {
         this.idProveedor = idProveedor;
     }
 
@@ -85,37 +85,41 @@ public class Proveedor implements Serializable {
         this.telefono = telefono;
     }
 
-    public List<Compra> getCompraList() {
-        return compraList;
+    public BigDecimal getPrecioMinimo() {
+        return precioMinimo;
     }
 
-    public void setCompraList(List<Compra> compraList) {
-        this.compraList = compraList;
+    public void setPrecioMinimo(BigDecimal precioMinimo) {
+        this.precioMinimo = precioMinimo;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idProveedor != null ? idProveedor.hashCode() : 0);
-        return hash;
+    public int getPlazoEntrega() {
+        return plazoEntrega;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Proveedor)) {
-            return false;
-        }
-        Proveedor other = (Proveedor) object;
-        if ((this.idProveedor == null && other.idProveedor != null) || (this.idProveedor != null && !this.idProveedor.equals(other.idProveedor))) {
-            return false;
-        }
-        return true;
+    public void setPlazoEntrega(int plazoEntrega) {
+        this.plazoEntrega = plazoEntrega;
     }
 
+    public String getContacto() {
+        return contacto;
+    }
+
+    public void setContacto(String contacto) {
+        this.contacto = contacto;
+    }
+
+    // toString para debugging
     @Override
     public String toString() {
-        return "modelo.Proveedor[ idProveedor=" + idProveedor + " ]";
+        return "Proveedor{" +
+                "idProveedor=" + idProveedor +
+                ", nombre='" + nombre + '\'' +
+                ", empresa='" + empresa + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", precioMinimo=" + precioMinimo +
+                ", plazoEntrega=" + plazoEntrega +
+                ", contacto='" + contacto + '\'' +
+                '}';
     }
-    
 }

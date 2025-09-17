@@ -4,106 +4,51 @@
  */
 package modelo;
 
-import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 /**
  *
- * @author ericg
+ * @author lore0
  */
-@Entity
-@Table(name = "producto")
-@NamedQueries({
-    @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p"),
-    @NamedQuery(name = "Producto.findByIdProducto", query = "SELECT p FROM Producto p WHERE p.idProducto = :idProducto"),
-    @NamedQuery(name = "Producto.findByNombre", query = "SELECT p FROM Producto p WHERE p.nombre = :nombre")})
-public class Producto implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id_producto")
-    private Integer idProducto;
-    @Column(name = "nombre")
+
+public class Producto {
+    private int idProducto;
     private String nombre;
-    @OneToMany(mappedBy = "productoId")
-    private List<Noperecedero> noperecederoList;
-    @OneToMany(mappedBy = "productoId")
-    private List<Perecedero> perecederoList;
+    private double precio;
+    private String tipo; // "perecedero" o "no_perecedero"
 
-    public Producto() {
-    }
-
-    public Producto(Integer idProducto) {
-        this.idProducto = idProducto;
-    }
-
-    public Integer getIdProducto() {
+    // Getters y setters
+    public int getIdProducto() {
         return idProducto;
     }
 
-    public void setIdProducto(Integer idProducto) {
+    public void setIdProducto(int idProducto) {
         this.idProducto = idProducto;
     }
 
     public String getNombre() {
         return nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public List<Noperecedero> getNoperecederoList() {
-        return noperecederoList;
-    }
-
-    public void setNoperecederoList(List<Noperecedero> noperecederoList) {
-        this.noperecederoList = noperecederoList;
-    }
-
-    public List<Perecedero> getPerecederoList() {
-        return perecederoList;
-    }
-
-    public void setPerecederoList(List<Perecedero> perecederoList) {
-        this.perecederoList = perecederoList;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idProducto != null ? idProducto.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Producto)) {
-            return false;
-        }
-        Producto other = (Producto) object;
-        if ((this.idProducto == null && other.idProducto != null) || (this.idProducto != null && !this.idProducto.equals(other.idProducto))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "modelo.Producto[ idProducto=" + idProducto + " ]";
+    public double getPrecio() {
+        return precio;
     }
     
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    public int getStockTotal(){
+        return 0;
+    }
 }
+
